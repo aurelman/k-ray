@@ -16,11 +16,33 @@ apply plugin: 'kotlin'
 apply plugin: 'idea'
 
 repositories {
+    maven { url "http://dl.bintray.com/jetbrains/spek" }
     mavenCentral()
+    jcenter()
+}
+
+test {
+    useJUnitPlatform {
+        includeTags 'fast', 'smoke & feature-a'
+        // excludeTags 'slow', 'ci'
+        includeEngines 'spek'
+        // excludeEngines 'junit-vintage'
+    }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    testCompile 'com.nhaarman:mockito-kotlin:1.5.0'
+    testCompile('org.jetbrains.spek:spek-api:1.1.5') {
+        // exclude group: 'org.jetbrains.kotlin'
+    }
+    testRuntime('org.jetbrains.spek:spek-junit-platform-engine:1.1.5') {
+        // exclude group: 'org.junit.platform'
+        // exclude group: 'org.jetbrains.kotlin'
+    }
+
+    testCompile 'org.assertj:assertj-core:3.10.0'
 }
 
 compileKotlin {
