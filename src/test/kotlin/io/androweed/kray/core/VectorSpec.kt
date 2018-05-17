@@ -59,7 +59,7 @@ object VectorSpec : Spek({
             }
 
             on("computing the opposite") {
-                it("returns the opposite vector") {
+                it("should return the opposite vector") {
                     val vec2 = -vec
                     assertThat(vec2.x).isEqualTo(-1.0, offset)
                     assertThat(vec2.y).isEqualTo(-5.0, offset)
@@ -68,13 +68,13 @@ object VectorSpec : Spek({
             }
 
             on("length") {
-                it("it returns the magnitude of the vector") {
+                it("should return the magnitude of the vector") {
                     assertThat(vec.length).isCloseTo(13.0384048, offset)
                 }
             }
 
             on("squaredLength") {
-                it("it returns the squared magnitude of the vector") {
+                it("should return the squared magnitude of the vector") {
                     assertThat(vec.squaredLength).isCloseTo(170.0, offset)
                 }
             }
