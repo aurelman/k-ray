@@ -1,6 +1,17 @@
 package io.androweed.main
+
+import io.androweed.kray.scene.read.SceneReader
+
 fun main(args: Array<String>) {
-    println("Hello World!")
+    val input = ("""
+            {
+                "lights":[
+                    { "name": "bob" },
+                    { "name": "bob2"}
+                ]
+            }
+        """)
+    SceneReader.read(input)
 }
 
 

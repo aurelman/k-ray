@@ -33,6 +33,14 @@ test {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
+    compile 'io.github.microutils:kotlin-logging:1.5.4'
+    runtime 'ch.qos.logback:logback-classic:1.2.3'
+
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+'
+
+    // The JUnit 5 launcher. Will launch Spek tests via Spek test engine
+    testRuntime("org.junit.platform:junit-platform-launcher:1.2.0")
+
     testCompile 'com.nhaarman:mockito-kotlin:1.5.0'
     testCompile('org.jetbrains.spek:spek-api:1.1.5') {
         // exclude group: 'org.jetbrains.kotlin'
