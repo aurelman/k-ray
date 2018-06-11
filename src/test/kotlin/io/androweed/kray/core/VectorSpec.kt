@@ -108,6 +108,17 @@ object VectorSpec : Spek({
                     assertThat(vec.normalize().length).isCloseTo(1.0, offset)
                 }
             }
+
+            on("joining two vectors") {
+                it("should return a vector joining two positions") {
+                    val origin = Position(1.0, 1.0, 1.0)
+                    val target = Position(10.0, 10.0, 10.0 )
+                    val result = origin toward target
+                    assertThat(result.x).isCloseTo(9.0, offset)
+                    assertThat(result.y).isCloseTo(9.0, offset)
+                    assertThat(result.z).isCloseTo(9.0, offset)
+                }
+            }
         }
     }
 })

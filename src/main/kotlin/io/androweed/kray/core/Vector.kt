@@ -34,6 +34,8 @@ data class Vector(val x: Double = 0.0, val y: Double = 0.0, val z: Double = 0.0)
             z * other.x - x * other.z,
             x * other.y - y * other.x)
 
+    infix fun toward(target: Vector) = target - this
+
     /**
      * Returns a `Vector` with the same direction as the current instance, but whose length is `1.0`.
      * It actually consists of a `Vector` where each coordinate has been divided by the length of the current `Vector`
@@ -67,3 +69,5 @@ data class Vector(val x: Double = 0.0, val y: Double = 0.0, val z: Double = 0.0)
 }
 
 operator fun Double.times(vec: Vector) = vec * this
+
+typealias Position = Vector
