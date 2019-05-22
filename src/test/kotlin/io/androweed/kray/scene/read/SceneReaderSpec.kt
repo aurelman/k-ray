@@ -1,11 +1,10 @@
 package io.androweed.kray.scene.read
 
-import com.fasterxml.jackson.core.JsonParseException
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import assertk.assertThat
+import assertk.assertions.hasClass
+import assertk.assertions.hasMessage
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 internal object SceneReaderSpec : Spek({
 
@@ -13,19 +12,24 @@ internal object SceneReaderSpec : Spek({
 
         val sceneReader = SceneReader
 
-        on("reading a not valid json input") {
+        context("reading a not valid json input") {
 
             it("should raise an exception if Json is malformed") {
 
-                assertThatExceptionOfType(SceneReadingException::class.java)
-                        .isThrownBy { sceneReader.read("{[}") }
-                        .withCauseInstanceOf(JsonParseException::class.java)
+                assertThat {
+                    sceneReader.read("{[}")
+                }.thrownError {
+                    hasClass(SceneReadingException::class)
+                }
             }
 
             it("should raise an exception when no camera is defined") {
-                assertThatExceptionOfType(SceneReadingException::class.java)
-                        .isThrownBy { sceneReader.read("""{  }""") }
-                        .withMessage("missing attribute 'camera'")
+                assertThat {
+                    sceneReader.read("""{  }""")
+                }.thrownError {
+                    hasClass(SceneReadingException::class)
+                    hasMessage("missing attribute 'camera'")
+                }
             }
         }
     }

@@ -1,16 +1,15 @@
 package io.androweed.kray.scene
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import io.androweed.kray.core.Vector
-import org.assertj.core.api.Assertions.assertThat
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
-internal object CameraSpec : Spek ({
+internal object CameraSpec : Spek({
 
     describe("a Camera") {
-        on("construction") {
+        context("construction") {
             val cam = Camera(up = Vector(0.0, 2.0, 0.0), direction = Vector(0.0, 0.0, 2.0))
             it("should normalize components") {
                 assertThat(cam.up).isEqualTo(Vector(0.0, 1.0, 0.0))

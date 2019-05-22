@@ -1,14 +1,15 @@
 package io.androweed.kray.core
 
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.data.Offset
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import assertk.assertThat
+import assertk.assertions.isCloseTo
+import assertk.assertions.isFalse
+import assertk.assertions.isTrue
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
+
 
 object QuadraticEquationSpec : Spek({
-    val offset = Offset.offset(0.0000001)
+    val offset = 0.0000001
 
     describe("a quadratic equation") {
 
@@ -16,7 +17,7 @@ object QuadraticEquationSpec : Spek({
 
             val equ = QuadraticEquation(2.0, -1.0, 2.0)
 
-            on("solving it") {
+            context("solving it") {
                 it ("should return 0 as number of roots") {
                     assertThat(equ.hasNoRoot()).isTrue()
                     assertThat(equ.hasOneRoot()).isFalse()
@@ -29,13 +30,13 @@ object QuadraticEquationSpec : Spek({
 
             val equ = QuadraticEquation(0.0, 5.0, 2.0)
 
-            on("solving it") {
+            context("solving it") {
                 it ("should return 0 as number of roots") {
                     assertThat(equ.hasNoRoot()).isFalse()
                     assertThat(equ.hasOneRoot()).isTrue()
                     assertThat(equ.hasTwoRoot()).isFalse()
 
-                    assertThat(equ.firstRoot()).isEqualTo(-5.0 / 2, offset)
+                    assertThat(equ.firstRoot()).isCloseTo(-5.0 / 2, offset)
                 }
             }
         }
@@ -44,14 +45,14 @@ object QuadraticEquationSpec : Spek({
 
             val equ = QuadraticEquation(1.0, 2.0, 1.0)
 
-            on("solving it") {
+            context("solving it") {
                 it ("should return 0 as number of roots") {
                     assertThat(equ.hasNoRoot()).isFalse()
                     assertThat(equ.hasOneRoot()).isTrue()
                     assertThat(equ.hasTwoRoot()).isFalse()
 
-                    assertThat(equ.firstRoot()).isEqualTo(-1.0, offset)
-                    assertThat(equ.secondRoot()).isEqualTo(-1.0, offset)
+                    assertThat(equ.firstRoot()).isCloseTo(-1.0, offset)
+                    assertThat(equ.secondRoot()).isCloseTo(-1.0, offset)
                 }
             }
         }
@@ -64,19 +65,20 @@ object QuadraticEquationSpec : Spek({
                 assertThat(equ.hasOneRoot()).isFalse()
                 assertThat(equ.hasTwoRoot()).isTrue()
 
-                assertThat(equ.firstRoot()).isEqualTo(-2.0, offset)
-                assertThat(equ.secondRoot()).isEqualTo(-0.5, offset)
+                assertThat(equ.firstRoot()).isCloseTo(-2.0, offset)
+                assertThat(equ.secondRoot()).isCloseTo(-0.5, offset)
             }
 
             it ("should avoid cancellation issues") {
                 val withCancellationIssues = QuadraticEquation(1.0, 200.0, -0.000015)
 
                 assertThat(withCancellationIssues.hasNoRoot()).isFalse()
+
                 assertThat(withCancellationIssues.hasOneRoot()).isFalse()
                 assertThat(withCancellationIssues.hasTwoRoot()).isTrue()
 
-                assertThat(withCancellationIssues.firstRoot()).isEqualTo(-200.000000075, Offset.offset(0.000000000001))
-                assertThat(withCancellationIssues.secondRoot()).isEqualTo(0.000000075, Offset.offset(0.000000000001))
+                assertThat(withCancellationIssues.firstRoot()).isCloseTo(-200.000000075, 0.000000000001)
+                assertThat(withCancellationIssues.secondRoot()).isCloseTo(0.000000075, 0.000000000001)
             }
         }
     }
