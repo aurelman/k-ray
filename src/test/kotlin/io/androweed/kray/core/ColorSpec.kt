@@ -8,7 +8,7 @@ import org.spekframework.spek2.style.specification.describe
 import java.lang.IllegalArgumentException
 
 
-class ColorSpec : Spek({
+object ColorSpec : Spek({
     describe("a color instance") {
 
         context("creating a new instance") {

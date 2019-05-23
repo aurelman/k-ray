@@ -1,7 +1,7 @@
 package io.androweed.kray.core
 
-import io.androweed.kray.scene.IntersectionResult
-import io.androweed.kray.scene.Primitive
+import io.androweed.kray.geometry.IntersectionResult
+import io.androweed.kray.geometry.Primitive
 
 /**
  * `Ray` is THE essential type in `k-ray`.

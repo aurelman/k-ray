@@ -3,6 +3,8 @@ package io.androweed.kray.scene
 import io.androweed.kray.core.Position
 import io.androweed.kray.core.QuadraticEquation
 import io.androweed.kray.core.Ray
+import io.androweed.kray.geometry.IntersectionResult
+import io.androweed.kray.geometry.Primitive
 
 data class Sphere(private val center: Position, private val radius: Double): Primitive {
     override fun normalAt(position: Position) = (center toward position).normalize()
