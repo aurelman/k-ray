@@ -9,7 +9,11 @@ import kotlin.math.sqrt
  *
  * `Vector` instances have value semantic and thus are immutable and thread safe.
  */
-data class Vector(val x: Double = 0.0, val y: Double = 0.0, val z: Double = 0.0) {
+data class Vector(
+    val x: Double = 0.0,
+    val y: Double = 0.0,
+    val z: Double = 0.0
+) {
     private var normalized: Boolean = false
 
     private constructor(x: Double = 0.0, y: Double = 0.0, z: Double = 0.0, normalized: Boolean) : this(x, y, z) {
