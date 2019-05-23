@@ -1,4 +1,4 @@
-package io.androweed.main
+package io.androweed.kray
 
 import io.androweed.kray.scene.read.SceneReader
 

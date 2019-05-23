@@ -1,4 +1,4 @@
-package io.androweed.kray.scene
+package io.androweed.kray.geometry
 
 import io.androweed.kray.core.Position
 import io.androweed.kray.core.Ray

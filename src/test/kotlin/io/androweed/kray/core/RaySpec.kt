@@ -3,8 +3,8 @@ package io.androweed.kray.core
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import io.androweed.kray.scene.IntersectionResult
-import io.androweed.kray.scene.Primitive
+import io.androweed.kray.geometry.IntersectionResult
+import io.androweed.kray.geometry.Primitive
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -19,7 +19,7 @@ internal object RaySpec : Spek({
             val ray = Ray(origin= Vector(0.0, 0.0, 0.0), direction = Vector(0.0, 0.0, 1.0))
 
             val primitive = mockk<Primitive>()
-            val intersection = IntersectionResult( intersect = false, intersection = null, primitive = primitive)
+            val intersection = IntersectionResult(intersect = false, intersection = null, primitive = primitive)
 
             every { primitive.intersect(ray) } returns intersection
 
