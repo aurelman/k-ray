@@ -13,6 +13,6 @@ interface Primitive {
 class IntersectionResult(private val primitive: Primitive, val intersect: Boolean, val intersection: Position?) {
 
     val normal by lazy {
-        primitive.normalAt(intersection!!).normalize()
+        primitive.normalAt(intersection!!).normalized()
     }
 }

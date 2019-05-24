@@ -7,7 +7,7 @@ import io.androweed.kray.geometry.IntersectionResult
 import io.androweed.kray.geometry.Primitive
 
 data class Sphere(private val center: Position, private val radius: Double): Primitive {
-    override fun normalAt(position: Position) = (center toward position).normalize()
+    override fun normalAt(position: Position) = (center toward position).normalized()
 
     override fun intersect(ray: Ray): IntersectionResult {
         val positionToRayOrigin = center toward ray.origin
@@ -18,7 +18,7 @@ data class Sphere(private val center: Position, private val radius: Double): Pri
         if (result.hasNoRoot()) {
             return IntersectionResult(this, false, null)
         }
-        val intersectionPosition = ray.origin + (ray.direction.normalize() * result.firstRoot())
+        val intersectionPosition = ray.origin + (ray.direction.normalized() * result.firstRoot())
         return IntersectionResult(this, true, intersectionPosition)
     }
 

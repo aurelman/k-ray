@@ -97,14 +97,14 @@ object VectorSpec : Spek({
 
             context("normalized vector") {
                 it("should have the right coordinates") {
-                    val result = vec.normalize()
+                    val result = vec.normalized()
                     assertThat(result.x).isCloseTo(0.0766964, offset)
                     assertThat(result.y).isCloseTo(0.3834824, offset)
                     assertThat(result.z).isCloseTo(-0.9203579, offset)
                 }
 
                 it("should have à length of 1.") {
-                    assertThat(vec.normalize().length).isCloseTo(1.0, offset)
+                    assertThat(vec.normalized().length).isCloseTo(1.0, offset)
                 }
             }
 
