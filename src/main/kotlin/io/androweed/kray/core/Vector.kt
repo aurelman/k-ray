@@ -45,10 +45,10 @@ data class Vector(
      * It actually consists of a `Vector` where each coordinate has been divided by the length of the current `Vector`
      * instance.
      *
-     * For optimization matters, if the current instance is already the result of a previous call to [normalize]
+     * For optimization matters, if the current instance is already the result of a previous call to [normalized]
      * on a `Vector` instance, it will return the current (`this`) instance, avoiding useless computations.
      */
-    fun normalize(): Vector {
+    fun normalized(): Vector {
         if (normalized) {
             return this
         }

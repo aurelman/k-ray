@@ -11,5 +11,5 @@ data class Ray(val origin: Position, val direction: Vector) {
         return primitive.intersect(this)
     }
 
-    //  constructor(origin:Position, direction: Vector) : this(origin, direction.normalize())
+    //  constructor(origin:Position, direction: Vector) : this(origin, direction.normalized())
 }
