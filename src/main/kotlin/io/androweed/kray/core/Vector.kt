@@ -27,7 +27,7 @@ data class Vector(
     /**
      * @see Double.times for the reverse operation
      */
-    operator fun times(scalar: Double) = Vector(x * scalar, y * scalar, z * scalar)
+    operator fun times(scalar: Number) = Vector(x * scalar.toDouble(), y * scalar.toDouble(), z * scalar.toDouble())
 
     operator fun unaryMinus(): Vector = Vector(-x, -y, -z)
 
@@ -72,6 +72,6 @@ data class Vector(
     }
 }
 
-operator fun Double.times(vec: Vector) = vec * this
+operator fun Number.times(vec: Vector) = vec * this
 
 typealias Position = Vector

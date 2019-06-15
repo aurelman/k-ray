@@ -1,4 +1,4 @@
-package io.androweed.kray.scene
+package io.androweed.kray.geometry
 
 import assertk.assertThat
 import assertk.assertions.isCloseTo
@@ -7,6 +7,7 @@ import assertk.assertions.isTrue
 import io.androweed.kray.core.Position
 import io.androweed.kray.core.Ray
 import io.androweed.kray.core.Vector
+import io.androweed.kray.geometry.Sphere
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -16,8 +17,8 @@ internal object SphereSpec : Spek({
     describe("a Sphere") {
 
         val sphere = Sphere(
-                center = Vector(0.0, 0.0, 0.0),
-                radius = 10.0)
+            center = Vector(0.0, 0.0, 0.0),
+            radius = 10.0)
 
         context("testing intersections") {
 
