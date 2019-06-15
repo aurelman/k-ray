@@ -3,6 +3,7 @@ import assertk.assertions.hasClass
 import assertk.assertions.hasMessage
 import assertk.assertions.isCloseTo
 import io.androweed.kray.core.Color
+import io.androweed.kray.core.times
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.lang.IllegalArgumentException
@@ -13,13 +14,13 @@ object ColorSpec : Spek({
 
         context("creating a new instance") {
 
-            it("should not raise error when component value are 1.0 or 0.0") {
+            it("should not raise any errors when its components are within [0.0, 1.0] range") {
                 assertThat {
                     Color(0.0f, 1.0f, 0.0f)
                 }.doesNotThrowAnyException()
             }
 
-            it("should raise error if any of the component is negative") {
+            it("should raise error if any of its components are negative") {
                 assertThat {
                     Color(-1.0f, -1.0f, -1.0f)
                 }.thrownError {
@@ -39,22 +40,60 @@ object ColorSpec : Spek({
         }
 
         context("when added to another vector") {
-            val color by memoized { Color(0.5f, 0.5f, 0.5f) }
 
             it("should return the resulting vector") {
-                val result = color + Color(0.3f, 0.3f, 0.3f)
+                val result = Color(0.5f, 0.5f, 0.5f) + Color(0.3f, 0.3f, 0.3f)
 
                 assertThat(result.red).isCloseTo(0.8f, 0.0000001f)
                 assertThat(result.green).isCloseTo(0.8f, 0.0000001f)
                 assertThat(result.blue).isCloseTo(0.8f, 0.0000001f)
             }
 
-            it("should cap component values when resulting components would be higher than 1") {
-                val result = color + Color(0.8f, 0.8f, 0.8f)
+            it("should clamp components by dividing resulting components by the max one") {
+                val result = Color(0.2f, 1.0f, 1.0f) + Color(0.3f, 0.0f, 1.0f)
+
+                assertThat(result.red).isCloseTo(0.25f, 0.0000001f)
+                assertThat(result.green).isCloseTo(0.5f, 0.0000001f)
+                assertThat(result.blue).isCloseTo(1f, 0.0000001f)
+            }
+        }
+
+        context("when multiplied by a scalar value") {
+
+
+            it("should return the resulting vector") {
+                val result = Color(0.4f, 0.4f, 0.4f) * 0.5
+
+                assertThat(result.red).isCloseTo(0.2f, 0.0000001f)
+                assertThat(result.green).isCloseTo(0.2f, 0.0000001f)
+                assertThat(result.blue).isCloseTo(0.2f, 0.0000001f)
+            }
+
+            it("should cap components values when multiplying by a scalar would lead to component higher than 1") {
+                val result = Color(1.0f, 0.5f, 0.2f) * 2.0
 
                 assertThat(result.red).isCloseTo(1f, 0.0000001f)
-                assertThat(result.green).isCloseTo(1f, 0.0000001f)
-                assertThat(result.blue).isCloseTo(1f, 0.0000001f)
+                assertThat(result.green).isCloseTo(0.5f, 0.0000001f)
+                assertThat(result.blue).isCloseTo(0.2f, 0.0000001f)
+            }
+        }
+
+        context("when multiplied by a scalar value left") {
+
+            it("should return the resulting vector") {
+                val result = 0.5 * Color(0.4f, 0.4f, 0.4f)
+
+                assertThat(result.red).isCloseTo(0.2f, 0.0000001f)
+                assertThat(result.green).isCloseTo(0.2f, 0.0000001f)
+                assertThat(result.blue).isCloseTo(0.2f, 0.0000001f)
+            }
+
+            it("should cap components values when multiplying by a scalar would lead to component higher than 1") {
+                val result = 2.0 * Color(1.0f, 0.5f, 0.2f)
+
+                assertThat(result.red).isCloseTo(1f, 0.0000001f)
+                assertThat(result.green).isCloseTo(0.5f, 0.0000001f)
+                assertThat(result.blue).isCloseTo(0.2f, 0.0000001f)
             }
         }
     }
